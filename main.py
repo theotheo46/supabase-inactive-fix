@@ -6,6 +6,11 @@ import logging
 from helpers.utils import generate_secure_random_string
 from services.supabase_service import SupabaseClient
 
+from dotenv import load_dotenv
+
+
+load_dotenv()  # This will load variables from .env into os.environ
+
 # User-defined variables to toggle additional features
 log_failed_databases = True  # Set to True to log failed databases
 detailed_status_report = True  # Set to True to generate a detailed status report
@@ -46,6 +51,8 @@ def main():
         key_env_var = config.get('supabase_key_env')
         if key_env_var:
             key = os.getenv(key_env_var)
+            print(f'Using environment variable for key: {key_env_var}')
+            print(f'Key value: {key}')
 
         if not url or not key:
             logging.error(f"Supabase URL or Key missing for '{name}'. Skipping.")
